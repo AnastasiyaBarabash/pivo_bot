@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bar-bot
+  namespace: party-hard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bar-bot
+  template:
+    metadata:
+      labels:
+        app: bar-bot
+    spec:
+      containers:
+        - name: bar-bot
+          image: bar-bot:latest
+          imagePullPolicy: Never
+          env:
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bar-bot-secret
+                  key: telegram-token
+            - name: API_URL
+              value: "http://bar-backend.party-hard.svc.cluster.local:40404"

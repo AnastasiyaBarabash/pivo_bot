@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bar-frontend
+  namespace: party-hard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bar-frontend
+  template:
+    metadata:
+      labels:
+        app: bar-frontend
+    spec:
+      containers:
+        - name: bar-frontend
+          image: bar-frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80

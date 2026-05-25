@@ -1,0 +1,4 @@
+.env
+.venv
+k8s/bot-secret.yaml
+party_hard.db

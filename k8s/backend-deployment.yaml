@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bar-backend
+  namespace: party-hard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bar-backend
+  template:
+    metadata:
+      labels:
+        app: bar-backend
+    spec:
+      containers:
+        - name: bar-backend
+          image: bar-backend:latest
+          imagePullPolicy: Never        # собирать локально
+          ports:
+            - containerPort: 40404
+          volumeMounts:
+            - name: db-storage
+              mountPath: /app
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: bar-backend-pvc
